@@ -73,15 +73,12 @@
 (setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 (package-refresh-contents)
 (package-install 'god-mode)
-(setq god-mode-enable-function-key-translation nil)
 (require 'god-mode)
-(setq god-exempt-major-modes nil)
-(setq god-exempt-predicates nil)
 (global-set-key (kbd "<escape>") #'god-local-mode)
 
 
 (setq explicit-shell-file-name "/bin/sh")
-(term "/bin/sh")
+(ansi-term "/bin/sh")
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
