@@ -1,3 +1,5 @@
+
+;;y2k-term
 ;; Prevent the cursor from blinking
 (blink-cursor-mode 0)
 ;; Don't use messages that you don't read
@@ -21,5 +23,7 @@
   '(fringe ((t (:background "black")))))
 (ansi-term "/bin/sh")
 
+
 ;;change the font size so my poor eyes can see
 (set-face-attribute 'default nil :height 200)
+(setq explicit-shell-file-name "/bin/sh")
