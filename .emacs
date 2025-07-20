@@ -18,12 +18,52 @@
 (scroll-bar-mode 0)
 (tool-bar-mode 0)
 (menu-bar-mode 0)
-(custom-set-faces
-  '(default ((t (:background "black" :foreground "grey"))))
-  '(fringe ((t (:background "black")))))
-(ansi-term "/bin/sh")
+;(custom-set-faces
+;  '(default ((t (:background "black" :foreground "grey"))))
+;  '(fringe ((t (:background "black")))))
+
 
 
 ;;change the font size so my poor eyes can see
 (set-face-attribute 'default nil :height 200)
+
+
+					;load darktooth theme
+;; (require 'url) ; No longer needed if not using url-retrieve-file
+
+(setq darktooth-theme-dir "~/.config/")
+(setq darktooth-theme-file (expand-file-name "darktooth-theme.el" darktooth-theme-dir))
+(setq darktooth-theme-url "https://emacsthemes.com/assets/local-src/darktooth-theme-source-code.el")
+
+;; 1. Ensure the directory exists
+(unless (file-directory-p darktooth-theme-dir)
+  (make-directory darktooth-theme-dir t)
+  (message "Created directory: %s" darktooth-theme-dir))
+
+;; 2. Download the file only if it doesn't exist, using wget
+(unless (file-exists-p darktooth-theme-file)
+  (message "Darktooth theme file not found. Downloading with wget...")
+  (let* ((wget-command "wget") ; Or "curl"
+         (wget-args (list "-O" darktooth-theme-file darktooth-theme-url)) ; -O specifies output file
+         (status-code (call-process wget-command nil nil nil "-O" darktooth-theme-file darktooth-theme-url)))
+    ;; Check if wget (or curl) command was successful
+    (if (zerop status-code) ; wget/curl return 0 for success
+        (progn
+          (message "Darktooth theme downloaded successfully to %s." darktooth-theme-file)
+          ;; 3. Load the theme after successful download
+          (add-to-list 'custom-theme-load-path darktooth-theme-dir)
+          (load-theme 'darktooth t))
+      (message "Failed to download Darktooth theme with %s. Status code: %d" wget-command status-code))))
+
+;; If the file already exists (or was just downloaded successfully), directly load the theme
+(if (file-exists-p darktooth-theme-file)
+    (progn
+      (add-to-list 'custom-theme-load-path darktooth-theme-dir)
+      (load-theme 'darktooth t)))
+
+
+    
+
+
 (setq explicit-shell-file-name "/bin/sh")
+(ansi-term "/bin/sh")
