@@ -62,8 +62,35 @@
       (load-theme 'darktooth t)))
 
 
-    
+
+;;god mode
+(require 'package)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
+;; Comment/uncomment this line to enable MELPA Stable if desired.  See `package-archive-priorities`
+;; and `package-pinned-packages`. Most users will not need or want to do this.
+;;(add-to-list 'package-archives '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+(package-initialize)
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
+(package-refresh-contents)
+(package-install 'god-mode)
+(setq god-mode-enable-function-key-translation nil)
+(require 'god-mode)
+(setq god-exempt-major-modes nil)
+(setq god-exempt-predicates nil)
+(global-set-key (kbd "<escape>") #'god-local-mode)
 
 
 (setq explicit-shell-file-name "/bin/sh")
-(ansi-term "/bin/sh")
+(term "/bin/sh")
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages '("god-mode" god-mode)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
